@@ -2,7 +2,7 @@
 
 par Le Gauche Valentin et Danous Natan
 
-##Création d'un système expert d'ordre 0+ dans le cadre de l'UV IA01
+## Création d'un système expert d'ordre 0+ dans le cadre de l'UV IA01
 
 Le but de ce système expert est de déterminer selon des faits, si un étudiant va sécher un cours.
 
