@@ -1,0 +1,125 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[cyr]{aeguill}
+\usepackage{xspace}
+\usepackage[francais]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[hyphenbreaks]{breakurl}
+\usepackage[hyphens]{url}
+\usepackage{array}
+\usepackage{pgf, tikz}
+\usepackage{tikz-3dplot}
+\usepackage{tikz-qtree}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{appendix}
+\usepackage{multirow}
+\usepackage{chngpage}
+\usepackage{import}
+\usepackage{calc}
+\usepackage{pgfplots}
+\usepackage{caption}
+\usepackage{parskip}
+\usepackage[left=2.5cm,top=3cm,right=2.5cm,bottom=3cm]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usetikzlibrary{patterns}
+\usetikzlibrary{3d}
+\usetikzlibrary{decorations.pathreplacing,angles,quotes}
+
+\begin{document}
+
+\begin{center}
+{\Large {\bfseries IA01 : Conduite d'expertise d'un SE d'ordre 0+}}
+
+{\large TP03 - 28/11/2017 - Le Gauche Valentin \& Danous Natan }
+\end{center}
+
+\medskip
+
+{\large{\bfseries Introduction}}
+
+Dans ce TP, nous devons mettre en place un système expert d'ordre 0+. C'est à dire que nos faits seront représentés par des couples (attribut, valeur).
+
+Nous avons choisis de réaliser un système expert qui pourra déterminer si un étudiant ira à un certain cours.
+
+\medskip
+
+{\large{\bfseries 1) Représentation formelle du problème}}
+
+\smallskip
+
+{\bfseries 1.1) Base de faits}
+
+\smallskip
+
+Nous avons choisi pour le moment ces caractéristiques pour constituer notre base de faits :
+
+\verb+[contenu = théorique|exercice], [tailleSalleDuCours = 10|...|150],+ 
+
+\verb+[jour = lundi|...|samedi], [heure = 8h|10h15|..|16h30], [heureCouchage = 22h|..|6h],+
+
+\verb+[sortie = non|pic|bar|fête]+
+
+\smallskip
+
+{\bfseries 1.2) Base de règles et sources d'expertise}
+
+\smallskip
+
+Nous avons trouvé plusieurs sources d'expertises sur internet, ce sont principalement des études qui ont été réalisées sur des étudiants (voir Sources).
+
+De ces sources, nous avons extraits plusieurs règles, cela reste une ébauche :
+
+\verb+R1 : [heure <= 10h15] ET [heureCouchage >= 00h]+
+	
+\hspace{4ex}\verb+-> [etat = fatigue]+
+
+\verb+R2 :	[tailleSalleDuCours >= 50]+
+	
+\hspace{4ex}\verb+[salle = amphi]+
+
+\verb+R3 :	[salle = amphi] ET [contenu = théorique]+
+	
+\hspace{4ex}\verb+-> [type = cours magistral]+
+
+\verb+R4 :	[type = cours magistral] ET [etat = fatigue]+
+	
+\hspace{4ex}\verb+-> [volonté = NIL]+
+
+\verb+R5 :	[volonté = NIL]+
+	
+\hspace{4ex}\verb+-> [n'ira pas en cours = oui]+
+
+Ces règles ne sont pas suffisantes. Nous avons décidé de constituer notre propre source d'expertise. En effet, parmi les sources trouvées, toutes restent très générales sur les causes de l'absentéisme étudiant. Elles ne sont pas adaptées spécifiquement au modèle de l'UTC qui a ses propres particularités. C'est pourquoi nous espérons mener {\bfseries un sondage auprès des étudiants} qui pourra nous permettre de compléter considérablement notre base de règles et ajouter des règles sur le comportement de l'étudiant.
+
+\medskip
+
+{\large{\bfseries 3) Simulation du système expert}}
+
+\smallskip
+
+Base de fait : \verb+[contenu = théorique], [tailleSalleDuCours = 150], [jour = mardi],+ 
+
+\verb+[heure = 8h], [heureCouchage = 00h], [sortie = non]+
+
+But : \verb+[n'ira pas en cours = oui]+
+
+Cheminement : \verb+R1, R2+ $\to$ \verb+R1, R3+ $\to$ \verb+R4+ $\to$ \verb+R5+
+
+\newpage
+
+{\bfseries Sources :}
+
+\url{https://teach.its.uiowa.edu/sites/teach.its.uiowa.edu/files/docs/docs/Why_Students_Attend_Class_ed.pdf}
+
+\url{https://www.prnewswire.com/news-releases/college-students-reveal-why-they-skip-class-in-140-characters-or-less-300125051.html}
+
+\url{http://web.mit.edu/fnl/volume/184/breslow.html}
+
+\url{http://wgssgnn.com/why-do-students-skip-class/}
+
+\end{document}
