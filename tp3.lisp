@@ -18,14 +18,14 @@
 ;     '(= tailleSalleDuCours 100)
 ;     '(= heure 11)))
 
-; (defparameter *BF* (list
-;     '(= natureRessourcesSuffidantes poly)
-;     '(= travail regulier)))
-
 (defparameter *BF* (list
-    '(= caracteristiqueMedian moyen)
-    '(= heure 12)
-    '(= travail enGroupe)))
+    '(= natureRessourcesSuffidantes poly)
+    '(= travail regulier)))
+
+; (defparameter *BF* (list
+;     '(= caracteristiqueMedian moyen)
+;     '(= heure 12)
+;     '(= travail enGroupe)))
 
 
 ;;;     BASE DE REGLES
@@ -90,8 +90,7 @@
     '(R50 ((>= tailleSalleDuCours 50)) (= salle amphi)) 
     '(R51 ((= salle amphi) (= contenu theorique)) (= type coursMagistral)) 
     '(R52 ((= type coursMagistral) (= etat fatigue)) (= volonte NIL)) 
-    '(R53 ((= volonte NIL)) (= allerEnCours NIL))
-    ))
+    '(R53 ((= volonte NIL)) (= allerEnCours NIL))))
 
 
 ;;;     BUT
@@ -141,7 +140,7 @@
         (loop
             (format t "~%BF: ~a~%~%" BF)
             (if (connu? but BF)
-                (return "Sechage !")
+                (return "Vous risquez fort de sécher ce cours")
                 (dolist (regle BR)
                     (dolist (premisse (regle-premisse regle))
                         (setq premissesValides T)
@@ -156,4 +155,4 @@
                 (progn
                     (setq regleCourante (pop EC))
                     (pushnew (regle-consequence regleCourante) BF))
-                (return "Non sechage")))))
+                (return "Vous ne sécherez pas ce cours")))))
