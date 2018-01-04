@@ -7,21 +7,27 @@
 
 ;;;     BASE DE FAITS
 
+; Scénario qui mene a "N'ira pas en cours"
 ; (defparameter *BF* (list
 ;     '(= contenu theorique)
 ;     '(= tailleSalleDuCours 100)
 ;     '(= heure 11)
 ;     '(= heureCouchage 1)))
 
+; Scénario qui mene a "N'ira pas en cours"
 ; (defparameter *BF* (list
 ;     '(= lieuPresenceSoirPrecedent bar)
 ;     '(= tailleSalleDuCours 100)
 ;     '(= heure 11)))
 
 (defparameter *BF* (list
-    '(= natureRessourcesSuffidantes poly)
-    '(= travail regulier)))
+    '(= natureRessourcesSuffisantes poly)
+    '(= travail regulier)
+    '(= lieuPresenceSoirPrecedent bar)
+    '(= tailleSalleDuCours 100)
+    '(= heure 11)))
 
+; Scénario qui mene a "Ira en cours"
 ; (defparameter *BF* (list
 ;     '(= caracteristiqueMedian moyen)
 ;     '(= heure 12)
@@ -125,7 +131,8 @@
         (equal (nth 2 fait) (nth 2 premisse))
         (eval (list (car premisse) (nth 2 fait) (nth 2 premisse)))))
 
-; Determiner si une r?le est ?aluable c'est ?dire que l'attribut est trouvable dans la BF.
+; Determiner si une règle est déclenchable c'est à dire que l'attribut est 
+; trouvable dans la BF et qu'il est vérifié par eval-fait.
 (defun declenchable (premisse BF)
     (let ((OK NIL))
         (dolist (fait BF OK)
